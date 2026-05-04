@@ -6,9 +6,10 @@ import com.olavevargas.tarea2.ui.screens.HomeScreen
 import com.olavevargas.tarea2.viewmodel.EventViewModel
 import com.olavevargas.tarea2.ui.screens.DetailScreen
 import com.olavevargas.tarea2.ui.screens.AddEventScreen
+import com.olavevargas.tarea2.viewmodel.CategoryViewModel
 
 @Composable
-fun NavGraph(viewModel: EventViewModel) {
+fun NavGraph(viewModel: EventViewModel, categoryViewModel: CategoryViewModel) {
 
     val navController = rememberNavController()
 
