@@ -15,12 +15,12 @@ fun NavGraph(viewModel: EventViewModel, categoryViewModel: CategoryViewModel) {
 
     NavHost(
         navController = navController,
-        startDestination = "inicio"
+        startDestination = "home"
 
     ) {
 
 
-        composable("inicio") {
+        composable("home") {
             HomeScreen(
                 viewModel = viewModel,
                 navController = navController

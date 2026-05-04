@@ -39,6 +39,10 @@ class EventViewModel : ViewModel(){
         eventos = eventos + nuevoEvento
     }
     // se filtra el evento por categoria
+
+    fun getCategoryById(id: Int): Category? {
+        return categorias.find { it.id == id }
+    }
     fun getEventsByCategory(idCategoria: Int): List<Event> {
         return eventos.filter { it.idCategoria == idCategoria }
     }
