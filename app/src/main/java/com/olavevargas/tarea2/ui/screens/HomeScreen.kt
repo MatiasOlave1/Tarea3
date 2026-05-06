@@ -3,12 +3,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.olavevargas.tarea2.viewmodel.EventViewModel
+import com.olavevargas.tarea2.ui.model.EventViewModel
 import androidx.compose.ui.res.stringResource
 import com.olavevargas.tarea2.R
 import androidx.compose.ui.res.painterResource
@@ -20,7 +22,7 @@ fun HomeScreen(
     navController: NavController
 )  {
 
-    val listaCategorias = viewModel.categorias
+    val listaCategorias by viewModel.categoriesUiState.collectAsState()
 
     Scaffold(
         topBar = {

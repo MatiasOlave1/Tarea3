@@ -1,12 +1,12 @@
-package com.olavevargas.tarea2.navigation
+package com.olavevargas.tarea2.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.*
 import com.olavevargas.tarea2.ui.screens.HomeScreen
-import com.olavevargas.tarea2.viewmodel.EventViewModel
+import com.olavevargas.tarea2.ui.model.EventViewModel
 import com.olavevargas.tarea2.ui.screens.DetailScreen
 import com.olavevargas.tarea2.ui.screens.AddEventScreen
-import com.olavevargas.tarea2.viewmodel.CategoryViewModel
+import com.olavevargas.tarea2.ui.model.CategoryViewModel
 
 @Composable
 fun NavGraph(viewModel: EventViewModel, categoryViewModel: CategoryViewModel) {

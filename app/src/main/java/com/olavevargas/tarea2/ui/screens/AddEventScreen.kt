@@ -9,8 +9,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.olavevargas.tarea2.viewmodel.EventViewModel
+import com.olavevargas.tarea2.ui.model.EventViewModel
 import com.olavevargas.tarea2.R
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -23,6 +24,7 @@ fun AddEventScreen(
     var descripcion by remember { mutableStateOf("") }
     var nombreCategoria by remember { mutableStateOf("") }
     var mensajeError by remember { mutableStateOf("") }
+    val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
         topBar = {
@@ -88,15 +90,19 @@ fun AddEventScreen(
                     if (titulo.isBlank() || descripcion.isBlank() || nombreCategoria.isBlank()) {
                         mensajeError = "Todos los campos son obligatorios"
                     } else {
-                        // Se crea u obtiene la categoría personalizada
-                        val idCategoria = viewModel.addCategory(nombreCategoria)
-                        
-                        viewModel.addEvent(
-                            titulo,
-                            descripcion,
-                            idCategoria
-                        )
-                        navController.popBackStack()
+                        coroutineScope.launch {
+                            // Se crea u obtiene la categoría personalizada
+                            val idCategoria = viewModel.addCategory(nombreCategoria)
+
+                            viewModel.addEvent(
+                                titulo,
+                                descripcion,
+                                idCategoria
+                            )
+                            navController.navigate("home") {
+                                popUpTo("home") { inclusive = true }
+                            }
+                        }
                     }
                 },
                 modifier = Modifier.fillMaxWidth(),
