@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.olavevargas.tarea2"
+    namespace = "com.olavevargas.tarea3"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.olavevargas.tarea2"
+        applicationId = "com.olavevargas.tarea3"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
