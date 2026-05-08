@@ -1,44 +1,54 @@
 package com.olavevargas.tarea3.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.compose.*
-import com.olavevargas.tarea3.ui.screens.HomeScreen
-import com.olavevargas.tarea3.ui.model.EventViewModel
-import com.olavevargas.tarea3.ui.screens.DetailScreen
-import com.olavevargas.tarea3.ui.screens.AddEventScreen
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
+
 import com.olavevargas.tarea3.ui.model.CategoryViewModel
+import com.olavevargas.tarea3.ui.model.EventViewModel
+import com.olavevargas.tarea3.ui.screens.AddEventScreen
+import com.olavevargas.tarea3.ui.screens.DetailScreen
+import com.olavevargas.tarea3.ui.screens.HomeScreen
+import com.olavevargas.tarea3.ui.navigation.Home
+import com.olavevargas.tarea3.ui.navigation.Detail
+import com.olavevargas.tarea3.ui.navigation.AddEvent
 
 @Composable
-fun NavGraph(viewModel: EventViewModel, categoryViewModel: CategoryViewModel) {
+fun Navigation(
+    viewModel: EventViewModel,
+    categoryViewModel: CategoryViewModel
+) {
 
     val navController = rememberNavController()
 
     NavHost(
         navController = navController,
-        startDestination = "home"
-
+        startDestination = Home
     ) {
 
+        composable<Home> {
 
-        composable("home") {
             HomeScreen(
                 viewModel = viewModel,
                 navController = navController
             )
         }
-        composable("detail/{idCategoria}") { backStackEntry ->
 
-            val idCategoria = backStackEntry.arguments
-                ?.getString("idCategoria")
-                ?.toIntOrNull() ?: 0
+        composable<Detail> { backStackEntry ->
+
+            val args = backStackEntry.toRoute<Detail>()
 
             DetailScreen(
-                idCategoria = idCategoria,
+                idCategoria = args.idCategoria,
                 viewModel = viewModel,
                 navController = navController
             )
         }
-        composable("addEvent") {
+
+        composable<AddEvent> {
+
             AddEventScreen(
                 viewModel = viewModel,
                 navController = navController

@@ -15,6 +15,9 @@ import androidx.compose.ui.res.stringResource
 import com.olavevargas.tarea3.R
 import androidx.compose.ui.res.painterResource
 import androidx.compose.foundation.Image
+import com.olavevargas.tarea3.ui.navigation.AddEvent
+import com.olavevargas.tarea3.ui.navigation.Detail
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
@@ -42,7 +45,7 @@ fun HomeScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    navController.navigate("addEvent")
+                    navController.navigate(AddEvent)
                 }
             ) {
                 Text("+")
@@ -61,7 +64,8 @@ fun HomeScreen(
                 CategoryItem(
                     nombre = categoria.nombre,
                     onClick = {
-                        navController.navigate("detail/${categoria.id}")
+
+                        navController.navigate(Detail(categoria.id))
                     }
                 )
                 Spacer(modifier = Modifier.height(10.dp))

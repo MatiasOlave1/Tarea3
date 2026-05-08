@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.olavevargas.tarea3.ui.model.EventViewModel
 import com.olavevargas.tarea3.R
+import com.olavevargas.tarea3.ui.navigation.Home
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -99,8 +100,8 @@ fun AddEventScreen(
                                 descripcion,
                                 idCategoria
                             )
-                            navController.navigate("home") {
-                                popUpTo("home") { inclusive = true }
+                            navController.navigate(Home) {
+                                popUpTo(Home) { inclusive = true }
                             }
                         }
                     }
