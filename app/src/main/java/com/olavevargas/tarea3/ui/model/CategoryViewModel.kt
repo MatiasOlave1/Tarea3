@@ -4,12 +4,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.olavevargas.tarea3.data.local.entity.Category
 import com.olavevargas.tarea3.data.repository.category.CategoryRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CategoryViewModel(private val categoryRepository: CategoryRepository) : ViewModel() {
+@HiltViewModel
+class CategoryViewModel @Inject constructor(
+    private val categoryRepository: CategoryRepository
+) : ViewModel() {
 
     val categoriesUiState: StateFlow<List<Category>> =
         categoryRepository.getAllCategoriesStream()
@@ -20,16 +25,36 @@ class CategoryViewModel(private val categoryRepository: CategoryRepository) : Vi
             )
 
     fun addCategory(nombre: String) {
+
         viewModelScope.launch {
-            categoryRepository.insertCategory(Category(id = 0, nombre = nombre))
+
+            categoryRepository.insertCategory(
+                Category(
+                    id = 0,
+                    nombre = nombre
+                )
+            )
         }
     }
 
-    suspend fun getOrAddCategory(nombre: String): Int {
-        val existing = categoriesUiState.value.find { it.nombre.equals(nombre, ignoreCase = true) }
-        if (existing != null) return existing.id
-        
-        val newCategory = Category(id = 0, nombre = nombre)
+    suspend fun getOrAddCategory(
+        nombre: String
+    ): Int {
+
+        val existing =
+            categoriesUiState.value.find {
+                it.nombre.equals(nombre, ignoreCase = true)
+            }
+
+        if (existing != null) {
+            return existing.id
+        }
+
+        val newCategory = Category(
+            id = 0,
+            nombre = nombre
+        )
+
         return categoryRepository.insertCategory(newCategory)
     }
 }
